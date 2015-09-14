@@ -51,7 +51,7 @@ gunicorn_backlog() {
 }
 
 gunicorn_workers() {
-	echo "$(validate "$(payload boxfile_gunicorn_workers)" "integer" "2")"
+	echo "$(validate "$(payload boxfile_gunicorn_workers)" "integer" "1")"
 }
 
 gunicorn_worker_class() {
