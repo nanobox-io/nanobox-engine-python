@@ -1,0 +1,38 @@
+# Server Socket
+bind = "0.0.0.0:8080"
+backlog = {{backlog}}
+# Worker Processes
+workers = {{workers}}
+worker_class = "{{worker_class}}"
+threads = {{threads}}
+worker_connections = {{worker_connections}}
+max_requests = {{max_requests}}
+max_requests_jitter = {{max_requests_jitter}}
+timeout = {{timeout}}
+graceful_timeout = {{graceful_timeout}}
+keepalive = {{keepalive}}
+# Security
+limit_request_line = {{limit_request_line}}
+limit_request_fields = {{limit_request_fields}}
+limit_request_field_size = {{limit_request_field_size}}
+# Debugging
+reload = False
+spew = {{spew}}
+# Server Mechanics
+preload_app = {{preload_app}}
+sendfile = {{sendfile}}
+chdir = "{{live_dir}}"
+daemon = False
+raw_env = {{raw_env}}
+pid_file = "{{deploy_dir}}/var/run/gunicorn.pid"
+worker_tmp_dir = "{{deploy_dir}}/var/tmp"
+user = "gonano"
+group = "gonano"
+secure_scheme_headers = {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+forwarded_allow_ips = "*"
+# Logging
+accesslog = "{{deploy_dir}}/var/log/gunicorn/access.log"
+errorlog = "{{deploy_dir}}/var/log/gunicorn/error.log"
+loglevel = "{{loglevel}}"
+# Process Naming
+proc_name = "gunicorn {{app_name}}"

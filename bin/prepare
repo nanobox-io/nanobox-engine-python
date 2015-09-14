@@ -1,0 +1,49 @@
+#!/bin/bash
+# -*- mode: bash; tab-width: 2; -*-
+# vim: ts=2 sw=2 ft=bash noet
+
+# source the Nos framework
+. /opt/nos/common.sh
+
+# initialize Nos with the original arguments
+nos_init $@
+
+# source common lib
+. ${engine_lib_dir}/common.sh
+
+# install python interpreter
+install_runtime
+
+# install pip package manager
+# install_pip
+
+# install python virtual environment
+install_virtualenv
+
+# install node.js for static assets
+install_js_runtime
+
+# install bower via npm if Bower.json is found
+install_bower
+
+create_env
+
+# persist all environment variables 
+persist_evars
+
+# install web server
+install_gunicorn
+
+# generate config files for gunicorn
+create_gunicorn_conf
+
+# run pip install
+pip_install
+
+# run bower install if Bower.json is found
+bower_install
+
+# persist the current node.js version in the cache
+set_js_runtime
+
+exit 0
