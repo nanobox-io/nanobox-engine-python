@@ -2,26 +2,77 @@
 
 This is a generic Python engine used to launch Python web and worker services when using [Nanobox](http://nanobox.io).
 
+## Basic Configuration Options
+This engine exposes configuration options through the [Boxfile](http://docs.nanobox.io/boxfile/), a yaml config file used to provision and configure your app's infrastructure when using Nanobox.
+
+##### *Advanced Configuration Options*
+This Readme outlines only the most basic and commonly used settings. For the full list of available configuration options, view the **[Advanced Python Configuration options](https://github.com/pagodabox/nanobox-engine-python/blob/master/doc/advanced-python-config.md)**.
+
+#### Overview of Basic Boxfile Config Options
 ```yaml
 build:
   runtime: python27
   js_runtime: nodejs-0.12
-  app_module: ""
-  gunicorn_backlog: 2048
-  gunicorn_workers: 1
-  gunicorn_worker_class: sync
-  gunicorn_threads: 1
-  gunicorn_worker_connections: 1000
-  gunicorn_max_requests: 1024
-  gunicorn_max_requests_jitter: 128
-  gunicorn_timeout: 30
-  gunicorn_graceful_timeout: 30
-  gunicorn_keepalive: 15
-  gunicorn_limit_request_line: 4094
-  gunicorn_limit_request_fields: 100
-  gunicorn_limit_request_field_size: 8190
-  gunicorn_spew: False
-  gunicorn_preload_app: True
-  gunicorn_sendfile: True
-  gunicorn_loglevel: info
+  app_module: ''
 ```
+
+##### Quick Links
+[Pyton Settings](#python-settings)  
+[JS Runtime Settings](#js-runtime-settings)  
+[Gunicorn Settings](#gunicorn-settings)  
+
+### Python Settings
+The following setting allows you to define your Python runtime environment.
+
+---
+
+##### `runtime`
+Specifies which Python runtime and version to use. The following runtimes are available:
+
+- python27
+- python 34
+
+```yaml
+build:
+  runtime: python27
+```
+
+---
+
+### JS Runtime Settings
+Many applications utilize Javascript tools in some way. This engine allows you to specify which JS runtime you'd like to use.
+
+---
+
+##### `js_runtime`
+Specifies which JS runtime and version to use. The following runtimes are available:
+
+- nodejs-0.8
+- nodejs-0.10
+- nodejs-0.12
+- iojs-2.3
+
+```yaml
+build:
+  js_runtime: nodejs-0.12
+```
+
+---
+
+### Gunicorn Settings
+The following settings allow you to configure Gunicorn.
+
+---
+
+##### `app_module`
+Of the pattern `$(MODULE_NAME):$(VARIABLE_NAME)`. The module name can be a full dotted path. The variable name refers to a WSGI callable that should be found in the specified module.
+```yaml
+# Example
+build:
+  app_module: 'test:app'
+```
+
+---
+
+## Help & Support
+This is a generic (non-framework-specific) Python engine provided by [Nanobox](http://nanobox.io). If you need help with this engine, you can reach out to us in the [#nanobox IRC channel](http://webchat.freenode.net/?channels=nanobox). If you are running into an issue with the engine, feel free to [create a new issue on this project](https://github.com/pagodabox/nanobox-engine-python/issues/new).
