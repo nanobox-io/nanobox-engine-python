@@ -8,8 +8,10 @@ This engine exposes configuration options through the [Boxfile](http://docs.nano
 build:
   # Python Settings
   runtime: python27
+  
   # JS Runtime Settings
   js_runtime: nodejs-0.12
+  
   # Gunicorn Settings
   app_module: ''
   gunicorn_backlog: 2048
