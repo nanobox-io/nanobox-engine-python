@@ -37,7 +37,7 @@ The following setting allows you to define your Python runtime environment.
 
 ---
 
-##### `runtime`
+#### runtime
 Specifies which Python runtime and version to use. The following runtimes are available:
 
 - python27
@@ -55,7 +55,7 @@ Many applications utilize Javascript tools in some way. This engine allows you t
 
 ---
 
-##### `js_runtime`
+#### js_runtime
 Specifies which JS runtime and version to use. The following runtimes are available:
 
 - nodejs-0.8
@@ -75,7 +75,7 @@ The following settings allow you to configure Gunicorn.
 
 ---
 
-##### `app_module`
+#### app_module
 Of the pattern `$(MODULE_NAME):$(VARIABLE_NAME)`. The module name can be a full dotted path. The variable name refers to a WSGI callable that should be found in the specified module.
 ```yaml
 # Example

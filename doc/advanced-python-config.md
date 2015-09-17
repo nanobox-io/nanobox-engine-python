@@ -43,7 +43,7 @@ The following setting allows you to define your Python runtime environment.
 
 ---
 
-##### `runtime`
+#### runtime
 Specifies which Python runtime and version to use. The following runtimes are available:
 
 - python27
@@ -61,7 +61,7 @@ Many applications utilize Javascript tools in some way. This engine allows you t
 
 ---
 
-##### `js_runtime`
+#### js_runtime
 Specifies which JS runtime and version to use. The following runtimes are available:
 
 - nodejs-0.8
@@ -100,7 +100,7 @@ The following settings allow you to configure Gunicorn.
 
 ---
 
-##### `app_module`
+#### app_module
 Of the pattern `$(MODULE_NAME):$(VARIABLE_NAME)`. The module name can be a full dotted path. The variable name refers to a WSGI callable that should be found in the specified module.
 ```yaml
 # Example
@@ -110,7 +110,7 @@ build:
 
 ---
 
-##### `gunicorn_backlog`
+#### gunicorn_backlog
 The maximum number of pending connections. More details are available in the [Official Gunicorn `backlog` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#backlog).
 ```yaml
 build:
@@ -119,7 +119,7 @@ build:
 
 ---
 
-##### `gunicorn_workers`
+#### gunicorn_workers
 The number of worker processes for handling requests. More details are available in the [Official Gunicorn `workers` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#workers).
 ```yaml
 build:
@@ -128,7 +128,7 @@ build:
 
 ---
 
-##### `gunicorn_worker_class`
+#### gunicorn_worker_class
 The type of workers to use. More details are available in the [Official Gunicorn `worker_class` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#worker-class).
 ```yaml
 build:
@@ -137,7 +137,7 @@ build:
 
 ---
 
-##### `gunicorn_threads`
+#### gunicorn_threads
 The number of worker threads for handling requests. More details are available in the [Official Gunicorn `threads` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#threads).
 ```yaml
 build:
@@ -146,7 +146,7 @@ build:
 
 ---
 
-##### `gunicorn_worker_connections`
+#### gunicorn_worker_connections
 The maximum number of simultaneous clients. More details are available in the [Official Gunicorn `worker_connections` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#worker-connections).
 ```yaml
 build:
@@ -155,7 +155,7 @@ build:
 
 ---
 
-##### `gunicorn_max_requests`
+#### gunicorn_max_requests
 The maximum number of requests a worker will process before restarting. More details are available in the [Official Gunicorn `max_requests` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#max-requests).
 ```yaml
 build:
@@ -164,7 +164,7 @@ build:
 
 ---
 
-##### `gunicorn_max_requests_jitter`
+#### gunicorn_max_requests_jitter
 The maximum jitter to add to the max-requests setting. More details are available in the [Official Gunicorn `max_requests_jitter` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#max-requests-jitter). 
 ```yaml
 build:
@@ -173,7 +173,7 @@ build:
 
 ---
 
-##### `gunicorn_timeout`
+#### gunicorn_timeout
 Workers silent for more than this many seconds are killed and restarted. More details are available in the [Official Gunicorn `timeout` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#timeout).
 ```yaml
 build:
@@ -182,7 +182,7 @@ build:
 
 ---
 
-##### `gunicorn_graceful_timeout`
+#### gunicorn_graceful_timeout
 Timeout for graceful workers restart. More details are available in the [Official Gunicorn `graceful_timeout` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#graceful-timeout).
 ```yaml
 build:
@@ -191,7 +191,7 @@ build:
 
 ---
 
-##### `gunicorn_keepalive`
+#### gunicorn_keepalive
 The number of seconds to wait for requests on a Keep-Alive connection. More details are available in the [Official Gunicorn `keepalive` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#keepalive)
 ```yaml
 build:
@@ -200,7 +200,7 @@ build:
 
 ---
 
-##### `gunicorn_limit_request_line`
+#### gunicorn_limit_request_line
 The maximum size of HTTP request line in bytes. More details are available in the [Official Gunicorn `limit_request_line` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#limit-request-line).
 ```yaml
 build:
@@ -209,7 +209,7 @@ build:
 
 ---
 
-##### `gunicorn_limit_request_fields`
+#### gunicorn_limit_request_fields
 Limit the number of HTTP headers fields in a request. More details are available in the [Official Gunicorn `limit_request_fields` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#limit-request-fields).
 ```yaml
 build:
@@ -218,7 +218,7 @@ build:
 
 ---
 
-##### `gunicorn_limit_request_field_size`
+#### gunicorn_limit_request_field_size
 Limit the allowed size of an HTTP request header field. More details are available in the [Official Gunicorn `limit_request_field_size` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#limit-request-fields).
 ```yaml
 build:
@@ -227,7 +227,7 @@ build:
 
 ---
 
-##### `gunicorn_spew`
+#### gunicorn_spew
 Install a trace function that spews every line executed by the server. More details are available in the [Official Gunicorn `spew` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#spew).
 ```yaml
 build:
@@ -236,7 +236,7 @@ build:
 
 ---
 
-##### `gunicorn_preload_app`
+#### gunicorn_preload_app
 Load application code before the worker processes are forked. More details are available in the [Official Gunicorn `preload_app` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#preload-app)
 ```yaml
 build:
@@ -245,7 +245,7 @@ build:
 
 ---
 
-##### `gunicorn_sendfile`
+#### gunicorn_sendfile
 Enables or disables the use of `sendfile()`. More details are available in the [Official Gunicorn `sendfile` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#sendfile).
 ```yaml
 build:
@@ -254,7 +254,7 @@ build:
 
 ---
 
-##### `gunicorn_loglevel`
+#### gunicorn_loglevel
 The granularity of Error log outputs. More details are available in the [Official Gunicorn `loglevel` Documentation](https://gunicorn-docs.readthedocs.org/en/19.3/settings.html#loglevel).
 ```yaml
 build:
