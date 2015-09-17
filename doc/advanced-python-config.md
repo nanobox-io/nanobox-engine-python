@@ -79,7 +79,7 @@ build:
 ### Gunicorn Settings
 The following settings allow you to configure Gunicorn.
 
-[app_module](#app_module)
+[app_module](#app_module)  
 [gunicorn_backlog](#gunicorn_backlog)  
 [gunicorn_workers](#gunicorn_workers)  
 [gunicorn_worker_class](#gunicorn_worker_class)  
