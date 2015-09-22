@@ -4,6 +4,5 @@
 
 # $1 = code_dir
 
-if [ ! -f ${1}/requirements.txt ]
-  exit 1
-fi
+[[ -f ${1}/requirements.txt ]] && exit 0
+exit 1
