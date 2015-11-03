@@ -1,6 +1,6 @@
 build:
   engine: '../../../../nanobox-engine-python'
-  stability: alpha
+  stability: beta
   app_module: "app:wsgiapp"
 web1:
-  stability: alpha
+  stability: beta

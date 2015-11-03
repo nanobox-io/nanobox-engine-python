@@ -9,14 +9,25 @@ create_boxfile() {
 }
 
 boxfile_payload() {
-    cat <<-END
+  _has_bower=(has_bower)
+  _can_run=(can_run)
+  _app_module=(app_module)
+  if [[ "${_can_run}" = "true" ]]; then
+    print_bullet_sub "Using ${app_module} as Python app module"
+  else
+    print_bullet_sub "Did not have app_module in Boxfile, not creating web service"
+  fi
+  if [[ "$_has_bower" = "true" ]]; then
+    print_bullet_sub "Adding lib_dirs for bower"
+  fi
+  cat <<-END
 {
-  "has_bower": $(has_bower),
-  "can_run": $(can_run),
+  "has_bower": ${_has_bower},
+  "can_run": ${_can_run},
   "etc_dir": "$(etc_dir)",
   "live_dir": "$(live_dir)",
   "deploy_dir": "$(deploy_dir)",
-  "app_module": "$(app_module)"
+  "app_module": "${_app_module}"
 }
 END
 }
