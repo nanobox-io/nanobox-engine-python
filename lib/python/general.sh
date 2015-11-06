@@ -9,9 +9,9 @@ python_create_boxfile() {
 }
 
 python_boxfile_payload() {
-  _has_bower=(nodejs_has_bower)
-  _can_run=(python_can_run)
-  _app_module=(python_app_module)
+  _has_bower=$(nodejs_has_bower)
+  _can_run=$(python_can_run)
+  _app_module=$(python_app_module)
   if [[ "${_can_run}" = "true" ]]; then
     nos_print_bullet_sub "Using ${_app_module} as Python app module"
   else

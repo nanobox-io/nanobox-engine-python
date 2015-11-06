@@ -6,7 +6,7 @@ python_install_gunicorn() {
 }
 
 python_create_gunicorn_conf() {
-  if [[ "$(can_run)" = "true" ]]; then
+  if [[ "$(python_can_run)" = "true" ]]; then
     nos_print_bullet "Generating gunicorn config.py"
     mkdir -p $(nos_etc_dir)/gunicorn
     mkdir -p $(nos_deploy_dir)/var/log/gunicorn
