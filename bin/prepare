@@ -9,43 +9,43 @@
 nos_init $@
 
 # source common lib
-. ${engine_lib_dir}/common.sh
+. ${engine_lib_dir}/python.sh
 
-print_process_start "Installing packages"
+nos_print_process_start "Installing packages"
 
 # install python interpreter
-install_runtime
+python_install_runtime
 
 # install pip package manager
 # install_pip
 
 # install python virtual environment
-install_virtualenv
+python_install_virtualenv
 
 # install node.js for static assets
-install_js_runtime
+nodejs_install_runtime
 
 # install bower via npm if Bower.json is found
-install_bower
+nodejs_install_bower
 
-create_env
+python_create_env
 
 # persist all environment variables 
-persist_evars
+nos_persist_evars
 
 # install web server
-install_gunicorn
+python_install_gunicorn
 
 # generate config files for gunicorn
-create_gunicorn_conf
+python_create_gunicorn_conf
 
 # run pip install
-pip_install
+python_pip_install
 
 # run bower install if Bower.json is found
-bower_install
+nodejs_bower_install
 
 # persist the current node.js version in the cache
-set_js_runtime
+nodejs_set_runtime
 
 exit 0
