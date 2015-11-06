@@ -84,67 +84,67 @@ END
 }
 
 python_gunicorn_backlog() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_backlog)" "integer" "2048")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_backlog)" "integer" "2048")"
 }
 
 python_gunicorn_workers() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_workers)" "integer" "1")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_workers)" "integer" "1")"
 }
 
 python_gunicorn_worker_class() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_worker_class)" "string" "sync")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_worker_class)" "string" "sync")"
 }
 
 python_gunicorn_threads() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_threads)" "integer" "1")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_threads)" "integer" "1")"
 }
 
 python_gunicorn_worker_connections() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_worker_connections)" "integer" "1000")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_worker_connections)" "integer" "1000")"
 }
 
 python_gunicorn_max_requests() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_max_requests)" "integer" "1024")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_max_requests)" "integer" "1024")"
 }
 
 python_gunicorn_max_requests_jitter() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_max_requests_jitter)" "integer" "128")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_max_requests_jitter)" "integer" "128")"
 }
 
 python_gunicorn_timeout() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_timeout)" "integer" "30")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_timeout)" "integer" "30")"
 }
 
 python_gunicorn_graceful_timeout() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_graceful_timeout)" "integer" "30")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_graceful_timeout)" "integer" "30")"
 }
 
 python_gunicorn_keepalive() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_keepalive)" "integer" "15")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_keepalive)" "integer" "15")"
 }
 
 python_gunicorn_limit_request_line() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_limit_request_line)" "integer" "4094")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_limit_request_line)" "integer" "4094")"
 }
 
 python_gunicorn_limit_request_fields() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_limit_request_fields)" "integer" "100")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_limit_request_fields)" "integer" "100")"
 }
 
 python_gunicorn_limit_request_field_size() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_limit_request_field_size)" "integer" "8190")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_limit_request_field_size)" "integer" "8190")"
 }
 
 python_gunicorn_spew() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_spew)" "boolean" "False")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_spew)" "boolean" "False")"
 }
 
 python_gunicorn_preload_app() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_preload_app)" "boolean" "True")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_preload_app)" "boolean" "True")"
 }
 
 python_gunicorn_sendfile() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_sendfile)" "boolean" "True")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_sendfile)" "boolean" "True")"
 }
 
 python_gunicorn_raw_env() {
@@ -161,5 +161,5 @@ python_gunicorn_raw_env() {
 }
 
 python_gunicorn_loglevel() {
-  echo "$(nos_validate "$(nos-payload boxfile_gunicorn_loglevel)" "string" "info")"
+  echo "$(nos_validate "$(nos_payload boxfile_gunicorn_loglevel)" "string" "info")"
 }
