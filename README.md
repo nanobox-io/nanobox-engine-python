@@ -10,7 +10,7 @@ To detect a Python app, this engine looks for a `requirements.txt`.
 - In the Python environment, the engine installs requirements by running `pip install -r requirements.txt`. Requirements are installed in the project rather than globally.
 
 ## Important Things to Know
-- In order for the enine to know how to start the app, you must provide the [`app_module`](#app_module) or a [`exec` in your web config](http://docs.nanobox.io/boxfile/code-services/#exec).
+- In order for the engine to know how to start the app, you must provide the [`app_module`](#app_module) or a [`exec` in your web config](http://docs.nanobox.io/boxfile/code-services/#exec).
 - This engine uses the Gunicorn web server. Granular Gunicorn config settings are available in the [Advance Config Options](https://github.com/pagodabox/nanobox-engine-python/blob/master/doc/advanced-python-config.md#gunicorn-settings).
 
 ## Basic Configuration Options
