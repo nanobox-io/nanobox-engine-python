@@ -28,7 +28,7 @@ build:
 ```
 
 ##### Quick Links
-[Pyton Settings](#python-settings)  
+[Python Settings](#python-settings)  
 [JS Runtime Settings](#js-runtime-settings)  
 [Gunicorn Settings](#gunicorn-settings)  
 
@@ -41,7 +41,7 @@ The following setting allows you to define your Python runtime environment.
 Specifies which Python runtime and version to use. The following runtimes are available:
 
 - python27
-- python 34
+- python34
 
 ```yaml
 build:
