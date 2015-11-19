@@ -29,7 +29,7 @@ build:
 
 ##### Quick Links
 [Pyton Settings](#python-settings)  
-[Node.js Runtime Settings](#node-js-runtime-settings)  
+[Node.js Runtime Settings](#nodejs-runtime-settings)  
 [Gunicorn Settings](#gunicorn-settings)  
 
 ### Python Settings
