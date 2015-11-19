@@ -22,14 +22,14 @@ This Readme outlines only the most basic and commonly used settings. For the ful
 #### Overview of Basic Boxfile Config Options
 ```yaml
 build:
-  runtime: python27
-  js_runtime: nodejs-0.12
+  python_runtime: python27
+  nodejs_runtime: nodejs-4.2
   app_module: ''
 ```
 
 ##### Quick Links
 [Pyton Settings](#python-settings)  
-[JS Runtime Settings](#js-runtime-settings)  
+[Node.js Runtime Settings](#node-js-runtime-settings)  
 [Gunicorn Settings](#gunicorn-settings)  
 
 ### Python Settings
@@ -37,11 +37,11 @@ The following setting allows you to define your Python runtime environment.
 
 ---
 
-#### runtime
+#### python_runtime
 Specifies which Python runtime and version to use. The following runtimes are available:
 
 - python27
-- python 34
+- python34
 
 ```yaml
 build:
@@ -50,22 +50,23 @@ build:
 
 ---
 
-### JS Runtime Settings
-Many applications utilize Javascript tools in some way. This engine allows you to specify which JS runtime you'd like to use.
+### Node.js Runtime Settings
+Many applications utilize Javascript tools in some way. This engine allows you to specify which Node.js runtime you'd like to use.
 
 ---
 
-#### js_runtime
+#### nodejs_runtime
 Specifies which JS runtime and version to use. The following runtimes are available:
 
 - nodejs-0.8
 - nodejs-0.10
 - nodejs-0.12
+- nodejs-4.2
 - iojs-2.3
 
 ```yaml
 build:
-  js_runtime: nodejs-0.12
+  nodejs_runtime: nodejs-4.2
 ```
 
 ---
@@ -77,6 +78,7 @@ The following settings allow you to configure Gunicorn.
 
 #### app_module
 Of the pattern `$(MODULE_NAME):$(VARIABLE_NAME)`. The module name can be a full dotted path. The variable name refers to a WSGI callable that should be found in the specified module.
+
 ```yaml
 # Example
 build:
