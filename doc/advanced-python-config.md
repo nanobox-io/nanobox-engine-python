@@ -7,10 +7,10 @@ This engine exposes configuration options through the [Boxfile](http://docs.nano
 ```yaml
 build:
   # Python Settings
-  runtime: python27
+  python_runtime: python27
   
-  # JS Runtime Settings
-  js_runtime: nodejs-0.12
+  # Node.js Runtime Settings
+  nodejs_runtime: nodejs-0.12
   
   # Gunicorn Settings
   app_module: ''
@@ -35,7 +35,7 @@ build:
 
 ##### Quick Links
 [Pyton Settings](#python-settings)  
-[JS Runtime Settings](#js-runtime-settings)  
+[Node.js Runtime Settings](#nodejs-runtime-settings)  
 [Gunicorn Settings](#gunicorn-settings)  
 
 ### Python Settings
@@ -43,35 +43,36 @@ The following setting allows you to define your Python runtime environment.
 
 ---
 
-#### runtime
+#### python_runtime
 Specifies which Python runtime and version to use. The following runtimes are available:
 
 - python27
-- python 34
+- python34
 
 ```yaml
 build:
-  runtime: python27
+  python_runtime: python27
 ```
 
 ---
 
-### JS Runtime Settings
-Many applications utilize Javascript tools in some way. This engine allows you to specify which JS runtime you'd like to use.
+### Node.js Runtime Settings
+Many applications utilize Javascript tools in some way. This engine allows you to specify which Node.js runtime you'd like to use.
 
 ---
 
-#### js_runtime
-Specifies which JS runtime and version to use. The following runtimes are available:
+#### nodejs_runtime
+Specifies which Node.js runtime and version to use. The following runtimes are available:
 
 - nodejs-0.8
 - nodejs-0.10
 - nodejs-0.12
+- nodejs-4.2
 - iojs-2.3
 
 ```yaml
 build:
-  js_runtime: nodejs-0.12
+  nodejs_runtime: nodejs-4.2
 ```
 
 ---

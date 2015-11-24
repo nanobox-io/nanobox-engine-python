@@ -6,16 +6,16 @@
 . /opt/nos/common.sh
 
 # initialize Nos with the original arguments
-nos_init $@
+nos_init "$@"
 
 # source common lib
-. ${engine_lib_dir}/common.sh
+. ${engine_lib_dir}/python.sh
 
-run_hooks "before"
+nos_run_hooks "before"
 
-run_hooks "exec"
+nos_run_hooks "exec"
 
-run_hooks "after"
+nos_run_hooks "after"
 
-print_bullet "Copying release into live code directory..."
-rsync -a $(payload 'code_dir')/ $(payload 'live_dir')
+nos_print_bullet "Copying release into live code directory..."
+rsync -a $(nos_code_dir)/ $(nos_live_dir)
