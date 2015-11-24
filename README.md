@@ -28,7 +28,7 @@ build:
 ```
 
 ##### Quick Links
-[Pyton Settings](#python-settings)  
+[Python Settings](#python-settings)  
 [Node.js Runtime Settings](#nodejs-runtime-settings)  
 [Gunicorn Settings](#gunicorn-settings)  
 
@@ -45,7 +45,7 @@ Specifies which Python runtime and version to use. The following runtimes are av
 
 ```yaml
 build:
-  runtime: python27
+  python_runtime: python27
 ```
 
 ---
