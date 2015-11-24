@@ -45,7 +45,7 @@ Specifies which Python runtime and version to use. The following runtimes are av
 
 ```yaml
 build:
-  runtime: python27
+  python_runtime: python27
 ```
 
 ---
