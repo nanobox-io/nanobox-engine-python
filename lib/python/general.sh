@@ -63,9 +63,9 @@ python_install_virtualenv() {
 }
 
 python_create_env() {
-  (cd $(nos_live_dir); nos_run_subprocess "virtualenv env" "virtualenv env")
+  (cd $(nos_code_dir); nos_run_subprocess "virtualenv env" "virtualenv env")
 }
 
 python_pip_install() {
-  (cd $(nos_live_dir); nos_run_subprocess "pip install" "env/bin/pip install -r $(nos_code_dir)/requirements.txt")
+  (cd $(nos_code_dir); nos_run_subprocess "pip install" "env/bin/pip install -r $(nos_code_dir)/requirements.txt")
 }
