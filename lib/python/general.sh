@@ -10,6 +10,7 @@ python_create_boxfile() {
 
 python_boxfile_payload() {
   _has_bower=$(nodejs_has_bower)
+  _has_redis=$(python_has_redis)
   _can_run=$(python_can_run)
   _app_module=$(python_app_module)
   if [[ "${_can_run}" = "true" ]]; then
@@ -23,6 +24,7 @@ python_boxfile_payload() {
   cat <<-END
 {
   "has_bower": ${_has_bower},
+  "has_redis": ${_has_redis},
   "can_run": ${_can_run},
   "etc_dir": "$(nos_etc_dir)",
   "live_dir": "$(nos_live_dir)",
@@ -68,4 +70,8 @@ python_create_env() {
 
 python_pip_install() {
   (cd $(nos_code_dir); nos_run_subprocess "pip install" "env/bin/pip install -r $(nos_code_dir)/requirements.txt")
+}
+
+python_has_redis() {
+  ( [[ -f $(nos_code_dir)/requirements.txt ]] && grep -i 'redis' $(nos_code_dir)/requirements.txt ) && echo "true" || echo "false"
 }

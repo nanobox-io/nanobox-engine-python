@@ -15,3 +15,6 @@ web1:
     gunicorn[access]: {{deploy_dir}}/var/log/gunicorn/access.log
     gunicorn[error]: {{deploy_dir}}/var/log/gunicorn/error.log
 {{/can_run}}
+{{#has_redis}}
+redis1:
+{{/has_redis}}
