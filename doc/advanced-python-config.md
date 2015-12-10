@@ -48,6 +48,7 @@ Specifies which Python runtime and version to use. The following runtimes are av
 
 - python27
 - python34
+- python35
 
 ```yaml
 build:
@@ -62,17 +63,11 @@ Many applications utilize Javascript tools in some way. This engine allows you t
 ---
 
 #### nodejs_runtime
-Specifies which Node.js runtime and version to use. The following runtimes are available:
-
-- nodejs-0.8
-- nodejs-0.10
-- nodejs-0.12
-- nodejs-4.2
-- iojs-2.3
+Specifies which Node.js runtime and version to use. This engine overlays the Node.js engine. You can view the available Node.js runtimes in the [Node.js engine documentation](https://github.com/nanobox-io/nanobox-engine-nodejs#nodejs_runtime).
 
 ```yaml
 build:
-  nodejs_runtime: nodejs-4.2
+  nodejs_runtime: 'nodejs-4.2'
 ```
 
 ---
