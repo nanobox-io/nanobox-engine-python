@@ -30,10 +30,10 @@ nodejs_install_bower
 
 python_create_env
 
-# persist all environment variables 
+# persist all environment variables
 nos_persist_evars
 
-nos_persist_evar "PATH" "$(nos_live_dir)/env/bin"
+nos_persist_evar "PATH" "$(nos_code_dir)/env/bin"
 
 # install web server
 python_install_gunicorn
