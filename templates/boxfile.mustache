@@ -1,17 +1,13 @@
 build:
   lib_dirs:
     - env
-{{#has_bower}}
-    - node_modules
-    - bower_components
-{{/has_bower}}
 {{#can_run}}
 web1:
   ports:
     - http:80:8080
     - http:443:8080
-  exec: {{live_dir}}/env/bin/gunicorn -c {{etc_dir}}/gunicorn/config.py {{app_module}}
+  exec: {{code_dir}}/env/bin/gunicorn -c {{etc_dir}}/gunicorn/config.py {{app_module}}
   log_watch:
-    gunicorn[access]: {{deploy_dir}}/var/log/gunicorn/access.log
-    gunicorn[error]: {{deploy_dir}}/var/log/gunicorn/error.log
+    gunicorn[access]: {{data_dir}}/var/log/gunicorn/access.log
+    gunicorn[error]: {{data_dir}}/var/log/gunicorn/error.log
 {{/can_run}}

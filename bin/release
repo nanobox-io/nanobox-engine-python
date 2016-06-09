@@ -10,3 +10,8 @@ nos_init "$@"
 
 # source common lib
 . ${engine_lib_dir}/python.sh
+
+# copy the release into the live code directory
+publish_release
+
+exit 0
