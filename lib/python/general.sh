@@ -16,9 +16,6 @@ boxfile_payload() {
   else
     nos_print_bullet_sub "Did not have app_module in Boxfile, not creating web service"
   fi
-  if [[ "$_has_bower" = "true" ]]; then
-    nos_print_bullet_sub "Adding lib_dirs for bower"
-  fi
   cat <<-END
 {
   "can_run": ${_can_run},
@@ -54,16 +51,12 @@ runtime() {
 }
 
 install_runtime() {
-  nos_install "$(runtime)"
+  nos_install "$(runtime)" "$(virtualenv_package)"
 }
 
 virtualenv_package() {
   _runtime=$(runtime)
   [[ "${_runtime}" =~ ^python[0-9]+$ ]] && echo "${_runtime//thon/}-virtualenv"
-}
-
-install_virtualenv() {
-  nos_install "$(virtualenv_package)"
 }
 
 create_env() {
