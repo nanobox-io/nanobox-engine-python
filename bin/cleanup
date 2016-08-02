@@ -10,3 +10,8 @@ nos_init "$@"
 
 # source common lib
 . ${engine_lib_dir}/python.sh
+
+# Remove build dependencies to ensure the build env is small
+uninstall_build_packages
+
+exit 0
