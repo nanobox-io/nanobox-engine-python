@@ -2,42 +2,41 @@
 
 This is a generic Python engine used to launch Python web and worker services when using [Nanobox](http://nanobox.io).
 
-## App Detection
-To detect a Python app, this engine looks for a `requirements.txt`.
+## Usage
+To use the Node.js engine, specify `python` as your `engine` in your boxfile.yml
+
+```yaml
+code.build:
+  engine: python
+```
 
 ## Build Process
+When [running a build](https://docs.nanboox.io/cli/build/), this engine compiles code by doing the following:
+
 - Installs `virtualenv` to create an isolated Python environment in which to build code.
 - In the Python environment, the engine installs requirements by running `pip install -r requirements.txt`. Requirements are installed in the project rather than globally.
 
-## Important Things to Know
-- In order for the engine to know how to start the app, you must provide the [`app_module`](#app_module) or a [`exec` in your web config](http://docs.nanobox.io/boxfile/code-services/#exec).
-- This engine uses the Gunicorn web server. Granular Gunicorn config settings are available in the [Advance Config Options](https://github.com/pagodabox/nanobox-engine-python/blob/master/doc/advanced-python-config.md#gunicorn-settings).
-
 ## Basic Configuration Options
-This engine exposes configuration options through the [Boxfile](http://docs.nanobox.io/boxfile/), a yaml config file used to provision and configure your app's infrastructure when using Nanobox.
-
-##### *Advanced Configuration Options*
-This Readme outlines only the most basic and commonly used settings. For the full list of available configuration options, view the **[Advanced Python Configuration options](https://github.com/pagodabox/nanobox-engine-python/blob/master/doc/advanced-python-config.md)**.
+This engine exposes configuration options through the [boxfile.yml](http://docs.nanobox.io/app-config/boxfile/), a yaml config file used to provision and configure your app's infrastructure when using Nanobox.
 
 #### Overview of Basic Boxfile Config Options
 ```yaml
-build:
-  python_runtime: python27
-  nodejs_runtime: nodejs-4.2
-  app_module: ''
+code.build:
+  config:
+    python_runtime: python27
+    nodejs_runtime: nodejs-4.4
 ```
 
 ##### Quick Links
 [Python Settings](#python-settings)  
 [Node.js Runtime Settings](#nodejs-runtime-settings)  
-[Gunicorn Settings](#gunicorn-settings)  
 
 ### Python Settings
 The following setting allows you to define your Python runtime environment.
 
 ---
 
-#### python_runtime
+#### runtime
 Specifies which Python runtime and version to use. The following runtimes are available:
 
 - python27
@@ -45,8 +44,9 @@ Specifies which Python runtime and version to use. The following runtimes are av
 - python35
 
 ```yaml
-build:
-  python_runtime: python27
+code.build:
+  config:
+    runtime: python27
 ```
 
 ---
@@ -57,27 +57,12 @@ Many applications utilize Javascript tools in some way. This engine allows you t
 ---
 
 #### nodejs_runtime
-Specifies which Node.js runtime and version to use. This engine overlays the Node.js engine. You can view the available Node.js runtimes in the [Node.js engine documentation](https://github.com/nanobox-io/nanobox-engine-nodejs#nodejs_runtime).
+Specifies which Node.js runtime and version to use. This engine overlays the Node.js engine. You can view the available Node.js runtimes in the [Node.js engine documentation](https://github.com/nanobox-io/nanobox-engine-nodejs#runtime).
 
 ```yaml
-build:
-  nodejs_runtime: 'nodejs-4.2'
-```
-
----
-
-### Gunicorn Settings
-The following settings allow you to configure Gunicorn.
-
----
-
-#### app_module
-Of the pattern `$(MODULE_NAME):$(VARIABLE_NAME)`. The module name can be a full dotted path. The variable name refers to a WSGI callable that should be found in the specified module.
-
-```yaml
-# Example
-build:
-  app_module: 'test:app'
+code.build:
+  config:
+    nodejs_runtime: 'nodejs-4.4'
 ```
 
 ---
