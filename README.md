@@ -1,6 +1,6 @@
 # Python
 
-This is a generic Python engine used to launch Python web and worker services when using [Nanobox](http://nanobox.io).
+This is a Python engine used to launch Python web and worker services when using [Nanobox](http://nanobox.io).
 
 ## Usage
 To use the Node.js engine, specify `python` as your `engine` in your boxfile.yml
