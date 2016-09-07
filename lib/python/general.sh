@@ -1,71 +1,90 @@
 # -*- mode: bash; tab-width: 2; -*-
 # vim: ts=2 sw=2 ft=bash noet
 
-python_create_boxfile() {
+create_boxfile() {
   nos_template \
     "boxfile.mustache" \
     "-" \
-    "$(python_boxfile_payload)"
+    "$(boxfile_payload)"
 }
 
-python_boxfile_payload() {
-  _has_bower=$(nodejs_has_bower)
-  _can_run=$(python_can_run)
-  _app_module=$(python_app_module)
+boxfile_payload() {
+  _can_run=$(can_run)
+  _app_module=$(app_module)
   if [[ "${_can_run}" = "true" ]]; then
     nos_print_bullet_sub "Using ${_app_module} as Python app module"
   else
     nos_print_bullet_sub "Did not have app_module in Boxfile, not creating web service"
   fi
-  if [[ "$_has_bower" = "true" ]]; then
-    nos_print_bullet_sub "Adding lib_dirs for bower"
-  fi
   cat <<-END
 {
-  "has_bower": ${_has_bower},
   "can_run": ${_can_run},
   "etc_dir": "$(nos_etc_dir)",
-  "live_dir": "$(nos_live_dir)",
-  "deploy_dir": "$(nos_deploy_dir)",
+  "code_dir": "$(nos_code_dir)",
+  "data_dir": "$(nos_data_dir)",
   "app_module": "${_app_module}"
 }
 END
 }
 
-python_app_name() {
+# Copy the code into the live directory which will be used to run the app
+publish_release() {
+  nos_print_bullet "Moving build into live code directory..."
+  rsync -a $(nos_code_dir)/ $(nos_app_dir)
+}
+
+app_name() {
   # payload app
   echo "$(nos_payload app)"
 }
 
-python_can_run() {
-  [[ -n "$(python_app_module)" ]] && echo "true" || echo "false"
+can_run() {
+  [[ -n "$(app_module)" ]] && echo "true" || echo "false"
 }
 
-python_app_module() {
-  echo "$(nos_validate "$(nos_payload 'boxfile_app_module')" "string" "")"
+app_module() {
+  echo "$(nos_validate "$(nos_payload 'config_app_module')" "string" "")"
 }
 
-python_runtime() {
-  echo "$(nos_validate "$(nos_payload 'boxfile_python_runtime')" "string" "python27")"
+runtime() {
+  echo "$(nos_validate "$(nos_payload 'config_runtime')" "string" "python27")"
 }
 
-python_install_runtime() {
-  nos_install "$(python_runtime)"
+install_runtime() {
+  pkgs=($(runtime) $(virtualenv_package))
+
+  if [[ "$(is_nodejs_required)" = "true" ]]; then
+    pkgs+=("$(nodejs_dependencies)")
+  fi
+
+  nos_install ${pkgs[@]}
 }
 
-python_virtualenv_package() {
-  _python_runtime=$(python_runtime)
-  [[ "${_python_runtime}" =~ ^python[0-9]+$ ]] && echo "${_python_runtime//thon/}-virtualenv"
+# Uninstall build dependencies
+uninstall_build_packages() {
+  # currently ruby doesn't install any build-only deps... I think
+  pkgs=()
+
+  # if nodejs is required, let's fetch any node build deps
+  if [[ "$(is_nodejs_required)" = "true" ]]; then
+    pkgs+=("$(nodejs_build_dependencies)")
+  fi
+
+  # if pkgs isn't empty, let's uninstall what we don't need
+  if [[ ${#pkgs[@]} -gt 0 ]]; then
+    nos_uninstall ${pkgs[@]}
+  fi
 }
 
-python_install_virtualenv() {
-  nos_install "$(python_virtualenv_package)"
+virtualenv_package() {
+  _runtime=$(runtime)
+  [[ "${_runtime}" =~ ^python[0-9]+$ ]] && echo "${_runtime//thon/}-virtualenv"
 }
 
-python_create_env() {
-  (cd $(nos_code_dir); nos_run_subprocess "virtualenv env" "virtualenv env")
+create_env() {
+  (cd $(nos_code_dir); nos_run_process "virtualenv env" "virtualenv env")
 }
 
-python_pip_install() {
-  (cd $(nos_code_dir); nos_run_subprocess "pip install" "env/bin/pip install -r $(nos_code_dir)/requirements.txt")
+pip_install() {
+  (cd $(nos_code_dir); nos_run_process "pip install" "env/bin/pip install -r $(nos_code_dir)/requirements.txt")
 }

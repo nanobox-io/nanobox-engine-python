@@ -1,0 +1,16 @@
+code.build:
+  lib_dirs:
+    - env
+  engine: '../../../../nanobox-engine-python'
+  stability: beta
+  config:
+    app_module: "app:wsgiapp"
+web1:
+  ports:
+    - 80:8080
+    - 443:8080
+  exec: "/code/env/bin/gunicorn -c /data/etc/gunicorn/config.py app:wsgiapp"
+  log_watch:
+    gunicorn[access]: /data/var/log/gunicorn/access.log
+    gunicorn[error]: /data/var/log/gunicorn/error.log
+  stability: beta

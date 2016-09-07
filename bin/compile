@@ -11,7 +11,14 @@ nos_init "$@"
 # source common lib
 . ${engine_lib_dir}/python.sh
 
-# Remove build dependencies to ensure the build env is small
-uninstall_build_packages
+# if nodejs is required, we have a bit more compiling to do
+if [[ "$(is_nodejs_required)" = "true" ]]; then
+  # run npm rebuild only if the runtime has changed
+  npm_rebuild
 
-exit 0
+  # run npm install
+  npm_install
+
+  # run npm prune
+  npm_prune
+fi

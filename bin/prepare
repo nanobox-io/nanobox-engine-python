@@ -3,7 +3,7 @@
 # vim: ts=2 sw=2 ft=bash noet
 
 # source the Nos framework
-. /opt/nos/common.sh
+. /opt/nanobox/nos/common.sh
 
 # initialize Nos with the original arguments
 nos_init "$@"
@@ -13,41 +13,32 @@ nos_init "$@"
 
 nos_print_process_start "Installing packages"
 
-# install python interpreter
-python_install_runtime
+# install python interpreter and virtual_env
+install_runtime
 
-# install pip package manager
-# install_pip
+# Create virtual environment in a directory
+create_env
 
-# install python virtual environment
-python_install_virtualenv
-
-# install node.js for static assets
-nodejs_install_runtime
-
-# install bower via npm if Bower.json is found
-nodejs_install_bower
-
-python_create_env
-
-# persist all environment variables
-nos_persist_evars
-
+# Update PATH to include the virtual environment
 nos_persist_evar "PATH" "$(nos_code_dir)/env/bin"
 
 # install web server
-python_install_gunicorn
+install_gunicorn
 
 # generate config files for gunicorn
-python_create_gunicorn_conf
+create_gunicorn_conf
 
 # run pip install
-python_pip_install
+pip_install
 
-# run bower install if Bower.json is found
-nodejs_bower_install
+# if nodejs is required, we have a bit more setup to do
+if [[ "$(is_nodejs_required)" = "true" ]]; then
 
-# persist the current node.js version in the cache
-nodejs_set_runtime
+  # add node_modules/.bin to the PATH
+  persist_npm_bin_to_path
+
+  # set the node.js runtime in cache
+  nodejs_persist_runtime
+fi
 
 exit 0
