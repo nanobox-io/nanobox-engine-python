@@ -23,7 +23,7 @@ This engine exposes configuration options through the [boxfile.yml](http://docs.
 ```yaml
 code.build:
   config:
-    runtime: python27
+    runtime: python
     nodejs_runtime: nodejs-4.4
 ```
 
@@ -39,14 +39,14 @@ The following setting allows you to define your Python runtime environment.
 #### runtime
 Specifies which Python runtime and version to use. The following runtimes are available:
 
-- python27
-- python34
-- python35
+- python-2.7
+- python-3.4
+- python-3.5
 
 ```yaml
 code.build:
   config:
-    runtime: python27
+    runtime: python
 ```
 
 ---
