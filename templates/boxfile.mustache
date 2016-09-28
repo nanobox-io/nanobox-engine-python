@@ -3,7 +3,7 @@ web.main:
   ports:
     - http:80:8080
     - http:443:8080
-  exec: {{code_dir}}/env/bin/gunicorn -c {{etc_dir}}/gunicorn/config.py {{app_module}}
+  start: {{code_dir}}/env/bin/gunicorn -c {{etc_dir}}/gunicorn/config.py {{app_module}}
   log_watch:
     gunicorn[access]: {{data_dir}}/var/log/gunicorn/access.log
     gunicorn[error]: {{data_dir}}/var/log/gunicorn/error.log
