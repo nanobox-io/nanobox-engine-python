@@ -47,7 +47,7 @@ app_module() {
 }
 
 runtime() {
-  echo "$(nos_validate "$(nos_payload 'config_runtime')" "string" "python27")"
+  echo "$(nos_validate "$(nos_payload 'config_runtime')" "string" "python-2.7")"
 }
 
 install_runtime() {
@@ -65,11 +65,6 @@ uninstall_build_packages() {
   # currently ruby doesn't install any build-only deps... I think
   pkgs=()
 
-  # if nodejs is required, let's fetch any node build deps
-  if [[ "$(is_nodejs_required)" = "true" ]]; then
-    pkgs+=("$(nodejs_build_dependencies)")
-  fi
-
   # if pkgs isn't empty, let's uninstall what we don't need
   if [[ ${#pkgs[@]} -gt 0 ]]; then
     nos_uninstall ${pkgs[@]}
@@ -79,6 +74,7 @@ uninstall_build_packages() {
 virtualenv_package() {
   _runtime=$(runtime)
   [[ "${_runtime}" =~ ^python[0-9]+$ ]] && echo "${_runtime//thon/}-virtualenv"
+  [[ "${_runtime}" =~ ^python-[.0-9]+$ ]] && echo "${_runtime//[-.thon]/}-virtualenv"
 }
 
 create_env() {
