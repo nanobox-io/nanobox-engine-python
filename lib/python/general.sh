@@ -51,11 +51,12 @@ runtime() {
 }
 
 install_runtime() {
-  pkgs=($(runtime) $(virtualenv_package))
+  # pkgs=($(runtime) $(virtualenv_package))
+  pkgs=($(runtime))
 
-  if [[ "$(is_nodejs_required)" = "true" ]]; then
-    pkgs+=("$(nodejs_dependencies)")
-  fi
+  # if [[ "$(is_nodejs_required)" = "true" ]]; then
+  #   pkgs+=("$(nodejs_dependencies)")
+  # fi
 
   nos_install ${pkgs[@]}
 }
