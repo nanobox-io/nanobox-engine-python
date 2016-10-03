@@ -41,7 +41,7 @@ install_runtime_packages() {
 # Uninstall build dependencies
 uninstall_build_packages() {
   # currently python doesn't install any build-only deps... I think
-  pkgs=()
+  pkgs=("$(condensed_runtime)-pip")
 
   # if pkgs isn't empty, let's uninstall what we don't need
   if [[ ${#pkgs[@]} -gt 0 ]]; then
@@ -72,10 +72,9 @@ query_dependencies() {
 # Install dependencies via pip from requirements.txt
 pip_install() {
   if [[ -f $(nos_code_dir)/requirements.txt ]]; then
-
-  cd $(nos_code_dir)
-  nos_run_process "Running pip install" \
-    "pip install -I -r requirements.txt"
-  cd - >/dev/null
-fi
+    cd $(nos_code_dir)
+    nos_run_process "Running pip install" \
+      "pip install -I -r requirements.txt"
+    cd - >/dev/null
+  fi
 }
