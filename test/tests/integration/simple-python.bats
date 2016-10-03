@@ -83,7 +83,7 @@ setup() {
   cd /tmp/code
 
   # start the server in the background
-  /data/bin/gunicorn 0.0.0.0:8080 app:wsgiapp &
+  /data/bin/gunicorn -b 0.0.0.0:8080 app:wsgiapp &
 
   # grab the pid
   pid=$!
