@@ -12,7 +12,7 @@ payload() {
   "cache_dir": "/tmp/cache",
   "etc_dir": "/data/etc",
   "env_dir": "/data/etc/env.d",
-  "config": {"app_module": "app:wsgiapp"}
+  "config": {}
 }
 END
 }
@@ -41,9 +41,6 @@ setup() {
 }
 
 @test "boxfile" {
-  if [[ ! -f /engine/bin/boxfile ]]; then
-    skip "No boxfile script"
-  fi
   run /engine/bin/boxfile "$(payload)"
 
   echo "$output"
@@ -52,9 +49,6 @@ setup() {
 }
 
 @test "build" {
-  if [[ ! -f /engine/bin/build ]]; then
-    skip "No build script"
-  fi
   run /engine/bin/build "$(payload)"
 
   echo "$output"
@@ -62,21 +56,7 @@ setup() {
   [ "$status" -eq 0 ]
 }
 
-@test "compile" {
-  if [[ ! -f /engine/bin/compile ]]; then
-    skip "No compile script"
-  fi
-  run /engine/bin/compile "$(payload)"
-
-  echo "$output"
-
-  [ "$status" -eq 0 ]
-}
-
 @test "cleanup" {
-  if [[ ! -f /engine/bin/cleanup ]]; then
-    skip "No cleanup script"
-  fi
   run /engine/bin/cleanup "$(payload)"
 
   echo "$output"
@@ -85,9 +65,6 @@ setup() {
 }
 
 @test "release" {
-  if [[ ! -f /engine/bin/release ]]; then
-    skip "No release script"
-  fi
   run /engine/bin/release "$(payload)"
 
   echo "$output"
@@ -106,7 +83,7 @@ setup() {
   cd /tmp/code
 
   # start the server in the background
-  /tmp/code/env/bin/gunicorn -c /data/etc/gunicorn/config.py app:wsgiapp &
+  /data/bin/gunicorn 0.0.0.0:8080 app:wsgiapp &
 
   # grab the pid
   pid=$!
