@@ -1,3 +1,6 @@
 code.build:
   # engine: '../../../../nanobox-engine-python'
   engine: python#refactor/the-basics
+
+web.main:
+  start: 'gunicorn -b 0.0.0.0:8080 app:wsgiapp'

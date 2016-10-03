@@ -68,3 +68,14 @@ query_dependencies() {
 
   echo "${deps[@]}"
 }
+
+# Install dependencies via pip from requirements.txt
+pip_install() {
+  if [[ -f $(nos_code_dir)/requirements.txt ]]; then
+
+  cd $(nos_code_dir)
+  nos_run_process "Running pip install" \
+    "pip install -I -r requirements.txt"
+  cd - >/dev/null
+fi
+}
