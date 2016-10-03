@@ -11,42 +11,10 @@ nos_init "$@"
 # source common lib
 . ${engine_lib_dir}/python.sh
 
-nos_print_process_start "Installing packages"
+# install python interpreter and pip
+install_runtime_packages
 
-# install python interpreter and virtual_env
-install_runtime
-
-# # Create virtual environment in a directory
-# create_env
-# 
-# # Update PATH to include the virtual environment
-# nos_persist_evar "PATH" "$(nos_code_dir)/env/bin"
-# 
-# # install web server
-# install_gunicorn
-# 
-# # generate config files for gunicorn
-# create_gunicorn_conf
-# 
 # # run pip install
 # pip_install
-# 
-# # if nodejs is required, we have a bit more setup to do
-# if [[ "$(is_nodejs_required)" = "true" ]]; then
-#   # add node_modules/.bin to the PATH
-#   persist_npm_bin_to_path
-# 
-#   # run npm rebuild only if the runtime has changed
-#   npm_rebuild
-# 
-#   # run npm install
-#   npm_install
-# 
-#   # run npm prune
-#   npm_prune
-# 
-#   # set the node.js runtime in cache
-#   nodejs_persist_runtime
-# fi
 
 exit 0
