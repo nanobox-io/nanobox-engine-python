@@ -3,7 +3,7 @@
 
 # Copy the code into the live directory which will be used to run the app
 publish_release() {
-  nos_print_bullet "Moving build into live code directory..."
+  nos_print_bullet "Moving build into live app directory..."
   rsync -a $(nos_code_dir)/ $(nos_app_dir)
 }
 
@@ -56,19 +56,23 @@ uninstall_build_packages() {
 query_dependencies() {
   deps=()
 
-  # # mysql
-  # if [[ `cat $(nos_code_dir)/Gemfile | grep 'mysql'` ]]; then
-  #   deps+=(mysql-client)
-  # fi
-  # # memcache
-  # if [[ `cat $(nos_code_dir)/Gemfile | grep 'memcache'` ]]; then
-  #   deps+=(libmemcached)
-  # fi
-  # # postgres
-  # if [[ `cat $(nos_code_dir)/Gemfile | grep 'pg'` ]]; then
-  #   deps+=(postgresql94-client)
-  # fi
-
+  # mysql
+  if [[ `grep 'MySQLdb\|mysqlclient' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(mysql-client)
+  fi
+  # memcache
+  if [[ `grep 'memcache\|libmc' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libmemcached)
+  fi
+  # postgres
+  if [[ `grep 'psycopg2' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(postgresql94-client)
+  fi
+  # redis
+  if [[ `grep 'redis' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(redis)
+  fi
+  
   echo "${deps[@]}"
 }
 
