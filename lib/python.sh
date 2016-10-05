@@ -31,6 +31,9 @@ condensed_runtime() {
 # Install the python runtime along with any dependencies.
 install_runtime_packages() {
   pkgs=("$(runtime)" "$(condensed_runtime)-pip")
+  
+  # readline and sqlite are needed for most projects
+  pkgs+=("$(condensed_runtime)-readline" "$(condensed_runtime)-sqlite3")
 
   # add any client dependencies
   pkgs+=("$(query_dependencies)")
