@@ -85,7 +85,7 @@ setup_pip_cache() {
     "$(pip_cache_payload)"
     
   # setup the link now
-  mkdir -p ${HOME}/.cache/pip
+  mkdir -p ${HOME}/.cache
   ln -sf $(nos_code_dir)/.pip-cache ${HOME}/.cache/pip
 }
 
