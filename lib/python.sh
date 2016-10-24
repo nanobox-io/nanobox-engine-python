@@ -76,12 +76,46 @@ query_dependencies() {
   echo "${deps[@]}"
 }
 
+# setup pip cache
+setup_pip_cache() {
+  mkdir -p $(nos_etc_dir)/profile.d/
+  nos_template \
+    "profile.d/pip.sh" \
+    "$(nos_etc_dir)/profile.d/pip.sh" \
+    "$(pip_cache_payload)"
+    
+  # setup the link now
+  mkdir -p ${HOME}/.cache/pip
+  ln -sf $(nos_code_dir)/.pip-cache ${HOME}/.cache/pip
+}
+
+# generate a payload for the pip cache profile template
+pip_cache_payload() {
+  cat <<-END
+{
+  "code_dir": "$(nos_code_dir)"
+}
+END
+}
+
+# fetch the user-specified pip install command or use a default
+pip_install_cmd() {
+  echo $(nos_validate \
+    "$(nos_payload "config_pip_install")" \
+    "string" "$(default_pip_install)")
+}
+
+# the default pip install cmd when a user-specified cmd is not present
+default_pip_install() {
+  echo "pip install -I -r requirements.txt"
+}
+
 # Install dependencies via pip from requirements.txt
 pip_install() {
   if [[ -f $(nos_code_dir)/requirements.txt ]]; then
     cd $(nos_code_dir)
     nos_run_process "Running pip install" \
-      "pip install -I -r requirements.txt"
+      "$(pip_install_cmd)"
     cd - >/dev/null
   fi
 }
