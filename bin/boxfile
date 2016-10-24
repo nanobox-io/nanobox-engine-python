@@ -6,6 +6,7 @@ cat <<-END
 code.build:
   lib_dirs:
     - src
+    - .pip-cache
 END
 
 exit 0
