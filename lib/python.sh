@@ -30,7 +30,7 @@ condensed_runtime() {
 
 # Install the python runtime along with any dependencies.
 install_runtime_packages() {
-  pkgs=("$(runtime)" "$(condensed_runtime)-pip")
+  pkgs=("$(runtime)" "$(condensed_runtime)-setuptools" "$(condensed_runtime)-pip")
   
   # readline and sqlite are needed for most projects
   pkgs+=("$(condensed_runtime)-readline" "$(condensed_runtime)-sqlite3")
@@ -43,7 +43,6 @@ install_runtime_packages() {
 
 # Uninstall build dependencies
 uninstall_build_packages() {
-  # currently python doesn't install any build-only deps... I think
   pkgs=("$(condensed_runtime)-pip")
 
   # if pkgs isn't empty, let's uninstall what we don't need
