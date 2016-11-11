@@ -1,4 +1,4 @@
-code.build:
+run.config:
   # engine: '../../../../nanobox-engine-python'
   engine: python#refactor/the-basics
 
