@@ -6,7 +6,6 @@ cat <<-END
 run.config:
   cache_dirs:
     - src
-    - .pip-cache
 END
 
 exit 0
