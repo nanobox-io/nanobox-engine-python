@@ -6,7 +6,7 @@ This is a Python engine for developing python apps on [Nanobox](http://nanobox.i
 To use the Python engine, specify `python` as your `engine` in your boxfile.yml
 
 ```yaml
-code.build:
+run.config:
   engine: python
 ```
 
@@ -24,8 +24,8 @@ Specifies which Python runtime and version to use. The following runtimes are av
 - python-3.5
 
 ```yaml
-code.build:
-  config:
+run.config:
+  engine.config:
     runtime: python-3.5
 ```
 
@@ -35,8 +35,8 @@ Allows for a custom user-defined pip install command.
 note: The custom pip install command should always include `-I` to ensure the binaries get copied on each build.
 
 ```yaml
-code.build:
-  config:
+run.config:
+  engine.config:
     pip_install: 'pip install --index-url https://my.custom.index -r requirements/private.txt -I'
 ```
 

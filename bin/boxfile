@@ -3,10 +3,9 @@
 # vim: ts=2 sw=2 ft=bash noet
 
 cat <<-END
-code.build:
-  lib_dirs:
+run.config:
+  cache_dirs:
     - src
-    - .pip-cache
 END
 
 exit 0

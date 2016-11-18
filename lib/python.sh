@@ -75,28 +75,6 @@ query_dependencies() {
   echo "${deps[@]}"
 }
 
-# setup pip cache
-setup_pip_cache() {
-  mkdir -p $(nos_etc_dir)/profile.d/
-  nos_template \
-    "profile.d/pip.sh" \
-    "$(nos_etc_dir)/profile.d/pip.sh" \
-    "$(pip_cache_payload)"
-    
-  # setup the link now
-  mkdir -p ${HOME}/.cache
-  ln -sf $(nos_code_dir)/.pip-cache ${HOME}/.cache/pip
-}
-
-# generate a payload for the pip cache profile template
-pip_cache_payload() {
-  cat <<-END
-{
-  "code_dir": "$(nos_code_dir)"
-}
-END
-}
-
 # fetch the user-specified pip install command or use a default
 pip_install_cmd() {
   echo $(nos_validate \

@@ -14,9 +14,6 @@ nos_init "$@"
 # install python interpreter and pip
 install_runtime_packages
 
-# setup pip cache lib_dir
-setup_pip_cache
-
 # run pip install
 pip_install
 
