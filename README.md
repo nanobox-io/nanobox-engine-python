@@ -22,6 +22,7 @@ Specifies which Python runtime and version to use. The following runtimes are av
 - python-2.7
 - python-3.4
 - python-3.5
+- python-3.6
 
 ```yaml
 run.config:
