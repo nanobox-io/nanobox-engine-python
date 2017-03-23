@@ -55,6 +55,10 @@ uninstall_build_packages() {
 query_dependencies() {
   deps=()
 
+  # mssql
+  if [[ `grep 'pymssql' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(freetds)
+  fi
   # mysql
   if [[ `grep 'MySQLdb\|mysqlclient' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(mysql-client)
