@@ -56,23 +56,23 @@ query_dependencies() {
   deps=()
 
   # mssql
-  if [[ `grep 'p\00?y\00?m\00?s\00?s\00?q\00?l' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -Pa 'p\00?y\00?m\00?s\00?s\00?q\00?l' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(freetds)
   fi
   # mysql
-  if [[ `grep 'M\00?y\00?S\00?Q\00?L\00?d\00?b\|m\00?y\00?s\00?q\00?l\00?c\00?l\00?i\00?e\00?n\00?t' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -Pa 'M\00?y\00?S\00?Q\00?L\00?d\00?b\|m\00?y\00?s\00?q\00?l\00?c\00?l\00?i\00?e\00?n\00?t' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(mysql-client)
   fi
   # memcache
-  if [[ `grep 'm\00?e\00?m\00?c\00?a\00?c\00?h\00?e\|l\00?i\00?b\00?m\00?c' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -Pa 'm\00?e\00?m\00?c\00?a\00?c\00?h\00?e\|l\00?i\00?b\00?m\00?c' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(libmemcached)
   fi
   # postgres
-  if [[ `grep 'p\00?s\00?y\00?c\00?o\00?p\00?g\00?2' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -Pa 'p\00?s\00?y\00?c\00?o\00?p\00?g\00?2' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(postgresql94-client)
   fi
   # redis
-  if [[ `grep 'r\00?e\00?d\00?i\00?s' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -Pa 'r\00?e\00?d\00?i\00?s' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(redis)
   fi
   
