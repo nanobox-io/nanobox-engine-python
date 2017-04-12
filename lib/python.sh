@@ -60,7 +60,7 @@ query_dependencies() {
     deps+=(freetds)
   fi
   # mysql
-  if [[ `grep 'MySQLdb\|mysqlclient' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep 'MySQLdb\|mysqlclient\|MySQL-python' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(mysql-client)
   fi
   # memcache
