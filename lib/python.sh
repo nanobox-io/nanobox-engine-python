@@ -75,6 +75,10 @@ query_dependencies() {
   if [[ `grep 'redis' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(redis)
   fi
+  # curl
+  if [[ `grep 'pycurl' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(curl)
+  fi
   
   echo "${deps[@]}"
 }
