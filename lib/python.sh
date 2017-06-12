@@ -56,31 +56,31 @@ query_dependencies() {
   deps=()
 
   # mssql
-  if [[ `grep 'pymssql' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -i 'pymssql' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(freetds)
   fi
   # mysql
-  if [[ `grep 'MySQLdb\|mysqlclient\|MySQL-python' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -i 'MySQLdb\|mysqlclient\|MySQL-python' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(mysql-client)
   fi
   # memcache
-  if [[ `grep 'memcache\|libmc' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -i 'memcache\|libmc' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(libmemcached)
   fi
   # postgres
-  if [[ `grep 'psycopg2' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -i 'psycopg2' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(postgresql94-client)
   fi
   # redis
-  if [[ `grep 'redis' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -i 'redis' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(redis)
   fi
   # curl
-  if [[ `grep 'pycurl' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -i 'pycurl' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(curl)
   fi
   # pillow
-  if [[ `grep 'pillow' $(nos_code_dir)/requirements.txt` ]]; then
+  if [[ `grep -i 'pillow' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(libjpeg-turbo tiff zlib freetype2 lcms2 libwebp tcl tk)
   fi
   

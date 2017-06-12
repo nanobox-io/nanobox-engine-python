@@ -1,2 +1,3 @@
 -e git://github.com/webpy/webpy.git#egg=web.py
 gunicorn
+Pillow
