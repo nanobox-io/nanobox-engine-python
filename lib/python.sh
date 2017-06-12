@@ -79,6 +79,10 @@ query_dependencies() {
   if [[ `grep 'pycurl' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(curl)
   fi
+  # pillow
+  if [[ `grep 'pillow' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libjpeg-turbo tiff zlib freetype2 lcms2 libwebp tcl tk)
+  fi
   
   echo "${deps[@]}"
 }
