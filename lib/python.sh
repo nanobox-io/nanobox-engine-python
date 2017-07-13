@@ -83,6 +83,10 @@ query_dependencies() {
   if [[ `grep -i 'pillow' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(libjpeg-turbo tiff zlib freetype2 lcms2 libwebp tcl tk)
   fi
+  # boto3
+  if [[ `grep -i 'boto3' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=("$(condensed_runtime)-cElementTree")
+  fi
   
   echo "${deps[@]}"
 }
