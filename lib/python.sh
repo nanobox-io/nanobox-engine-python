@@ -96,7 +96,12 @@ pip_install_cmd() {
 
 # the default pip install cmd when a user-specified cmd is not present
 default_pip_install() {
-  echo "pip install -I -r requirements.txt"
+  echo "\
+    pip install \
+      -I \
+      -r requirements.txt \
+      --disable-pip-version-check \
+      --no-cache-dir"
 }
 
 # Install dependencies via pip from requirements.txt
