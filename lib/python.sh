@@ -101,7 +101,10 @@ default_pip_install() {
       -I \
       -r requirements.txt \
       --disable-pip-version-check \
-      --no-cache-dir"
+      --no-cache-dir \
+      --target=$(nos_code_dir)/.nanobox/pip/src \
+      --upgrade \
+      --install-option='--install-scripts=$(nos_code_dir)/.nanobox/pip/bin'"
 }
 
 # Install dependencies via pip from requirements.txt
@@ -112,4 +115,12 @@ pip_install() {
       "$(pip_install_cmd)"
     cd - >/dev/null
   fi
+}
+
+# Since we install pip modules into a custom cache_dir, we need
+# to setup the environment (with env vars) for the python app to work
+set_pip_env() {
+  nos_template_file \
+    'profile.d/pip.sh' \
+    $(nos_etc_dir)/profile.d/pip.sh
 }
