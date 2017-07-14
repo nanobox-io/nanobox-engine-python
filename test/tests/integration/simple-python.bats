@@ -82,8 +82,11 @@ setup() {
   # cd into the app code_dir
   cd /tmp/code
 
+  # source the profile.d/pip.sh env
+  source /data/etc/profile.d/pip.sh
+
   # start the server in the background
-  /data/bin/gunicorn -b 0.0.0.0:8080 app:wsgiapp &
+  /tmp/code/.nanobox/pip/bin/gunicorn -b 0.0.0.0:8080 app:wsgiapp &
 
   # grab the pid
   pid=$!
