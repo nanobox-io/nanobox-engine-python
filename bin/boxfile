@@ -2,13 +2,9 @@
 # -*- mode: bash; tab-width: 2; -*-
 # vim: ts=2 sw=2 ft=bash noet
 
-cat <<-END
-run.config:
-  cache_dirs:
-    - src
-END
 if [[ $(grep -c build_triggers /opt/nanobox/hooks/lib/boxfile.rb) -gt 1 ]]; then
 	cat <<-END
+  run.config:
 	  build_triggers:
 	    - requirements.txt
 	END
