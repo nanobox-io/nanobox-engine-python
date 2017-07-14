@@ -5,4 +5,4 @@
 # and PYTHONPATH to include the src dir
 
 PYTHONPATH=/app/.nanobox/pip/src:$PYTHONPATH
-PATH=/app/.nanobox/pip/bin
+PATH=/app/.nanobox/pip/bin:$PATH
