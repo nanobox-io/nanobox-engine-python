@@ -117,10 +117,20 @@ pip_install() {
   fi
 }
 
+# Generate the payload to render the pip env profile.d template
+pip_env_payload() {
+  cat <<-END
+{
+  "app_dir": "$(nos_app_dir)"
+}
+END
+}
+
 # Since we install pip modules into a custom cache_dir, we need
 # to setup the environment (with env vars) for the python app to work
 set_pip_env() {
-  nos_template_file \
-    'profile.d/pip.sh' \
-    $(nos_etc_dir)/profile.d/pip.sh
+  nos_template \
+    "profile.d/pip.sh" \
+    "$(nos_etc_dir)/profile.d/pip.sh" \
+    "$(pip_env_payload)"
 }
