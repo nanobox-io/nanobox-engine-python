@@ -121,7 +121,7 @@ pip_install() {
 pip_env_payload() {
   cat <<-END
 {
-  "app_dir": "$(nos_app_dir)"
+  "code_dir": "$(nos_code_dir)"
 }
 END
 }
