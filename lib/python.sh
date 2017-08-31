@@ -87,6 +87,14 @@ query_dependencies() {
   echo "${deps[@]}"
 }
 
+# set any necessary python environment variables
+setup_python_env() {
+  # ensure python doesn't buffer even when not attached to a pty
+  nos_template_file \
+    "env.d/PYTHONUNBUFFERED" \
+    "$(nos_etc_dir)/env.d/PYTHONUNBUFFERED"
+}
+
 # fetch the user-specified pip install command or use a default
 pip_install_cmd() {
   echo $(nos_validate \
