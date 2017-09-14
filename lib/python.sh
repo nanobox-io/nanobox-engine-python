@@ -83,6 +83,18 @@ query_dependencies() {
   if [[ `grep -i 'pillow' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(libjpeg-turbo tiff zlib freetype2 lcms2 libwebp tcl tk)
   fi
+  # xmlsec
+  if [[ `grep -i 'xmlsec' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libxml2 libxslt xmlsec1 pkgconf)
+  fi
+  # python3-saml
+  if [[ `grep -i 'python3-saml' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libxml2 libxslt xmlsec1 pkgconf)
+  fi
+  # pygraphviz
+  if [[ `grep -i 'pygraphviz' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libxshmfence libva libvdpau libLLVM-3.8 graphviz)
+  fi
   
   echo "${deps[@]}"
 }
