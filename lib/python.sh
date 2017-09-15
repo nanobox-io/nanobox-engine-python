@@ -87,8 +87,32 @@ query_dependencies() {
   if [[ `grep -i 'boto3' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=("$(condensed_runtime)-cElementTree")
   fi
-  
+  # xmlsec
+  if [[ `grep -i 'xmlsec' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libxml2 libxslt xmlsec1 pkgconf)
+  fi
+  # python3-saml
+  if [[ `grep -i 'python3-saml' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libxml2 libxslt xmlsec1 pkgconf)
+  fi
+  # pygraphviz
+  if [[ `grep -i 'pygraphviz' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libxshmfence libva libvdpau libLLVM-3.8 graphviz)
+  fi
+  # scipy
+  if [[ `grep -i 'scipy' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(blas lapack)
+  fi
+
   echo "${deps[@]}"
+}
+
+# set any necessary python environment variables
+setup_python_env() {
+  # ensure python doesn't buffer even when not attached to a pty
+  nos_template_file \
+    "env.d/PYTHONUNBUFFERED" \
+    "$(nos_etc_dir)/env.d/PYTHONUNBUFFERED"
 }
 
 # fetch the user-specified pip install command or use a default
