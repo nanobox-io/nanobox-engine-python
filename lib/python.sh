@@ -95,7 +95,11 @@ query_dependencies() {
   if [[ `grep -i 'pygraphviz' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(libxshmfence libva libvdpau libLLVM-3.8 graphviz)
   fi
-  
+  # scipy
+  if [[ `grep -i 'scipy' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(blas lapack)
+  fi
+
   echo "${deps[@]}"
 }
 
