@@ -124,7 +124,15 @@ pip_install_cmd() {
 
 # the default pip install cmd when a user-specified cmd is not present
 default_pip_install() {
-  echo "pip install -I -r requirements.txt"
+  echo "\
+    pip install \
+      -I \
+      -r requirements.txt \
+      --disable-pip-version-check \
+      --no-cache-dir \
+      --target=$(nos_code_dir)/.nanobox/pip/src \
+      --upgrade \
+      --install-option='--install-scripts=$(nos_code_dir)/.nanobox/pip/bin'"
 }
 
 # Install dependencies via pip from requirements.txt
@@ -135,4 +143,22 @@ pip_install() {
       "$(pip_install_cmd)"
     cd - >/dev/null
   fi
+}
+
+# Generate the payload to render the pip env profile.d template
+pip_env_payload() {
+  cat <<-END
+{
+  "code_dir": "$(nos_code_dir)"
+}
+END
+}
+
+# Since we install pip modules into a custom cache_dir, we need
+# to setup the environment (with env vars) for the python app to work
+set_pip_env() {
+  nos_template \
+    "profile.d/pip.sh" \
+    "$(nos_etc_dir)/profile.d/pip.sh" \
+    "$(pip_env_payload)"
 }

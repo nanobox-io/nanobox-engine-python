@@ -14,6 +14,9 @@ nos_init "$@"
 # install python interpreter and pip
 install_runtime_packages
 
+# set pip env
+set_pip_env
+
 # setup python environment
 setup_python_env
 

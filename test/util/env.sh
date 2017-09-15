@@ -1,11 +1,14 @@
 
 directories=(
   "/tmp/code"
+  "/tmp/code/.nanobox"
+  "/tmp/code/.nanobox/pip"
   "/tmp/app"
   "/tmp/cache"
   "/data"
   "/data/etc"
   "/data/etc/env.d"
+  "/data/etc/profile.d"
 )
 
 prepare_environment() {
