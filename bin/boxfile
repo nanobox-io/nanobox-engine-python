@@ -5,7 +5,7 @@
 cat <<-END
 run.config:
   cache_dirs:
-    - $(nos_code_dir)/.nanobox/pip
+    - .nanobox/pip
 END
 if [[ $(grep -c build_triggers /opt/nanobox/hooks/lib/boxfile.rb) -gt 1 ]]; then
 	cat <<-END
