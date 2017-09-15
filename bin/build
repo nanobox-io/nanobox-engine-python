@@ -17,6 +17,9 @@ install_runtime_packages
 # set pip env
 set_pip_env
 
+# setup python environment
+setup_python_env
+
 # run pip install
 pip_install
 
