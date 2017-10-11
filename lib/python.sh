@@ -32,9 +32,14 @@ condensed_runtime() {
 install_runtime_packages() {
   pkgs=("$(runtime)" "$(condensed_runtime)-setuptools" "$(condensed_runtime)-pip")
   
-  # readline and sqlite are needed for most projects
-  pkgs+=("$(condensed_runtime)-readline" "$(condensed_runtime)-sqlite3")
-
+  # add packages that are usually part of the stdlib
+  pkgs+=(\
+    "$(condensed_runtime)-cElementTree" \
+    "$(condensed_runtime)-curses" \
+    "$(condensed_runtime)-expat" \
+    "$(condensed_runtime)-readline" \
+    "$(condensed_runtime)-sqlite3")
+  
   # add any client dependencies
   pkgs+=("$(query_dependencies)")
 
