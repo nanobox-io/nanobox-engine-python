@@ -60,7 +60,7 @@ install_runtime_packages() {
 
 # Uninstall build dependencies
 uninstall_build_packages() {
-  pkgs=("$(condensed_runtime)-pip")
+  pkgs=()
 
   # if pkgs isn't empty, let's uninstall what we don't need
   if [[ ${#pkgs[@]} -gt 0 ]]; then
@@ -88,16 +88,9 @@ setup_python_env() {
   
   # If anything exists before we symlink, copy it into the cache
   if [[ -d "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" ]]; then
-    echo "COPY!"
-    ls -lah "$(nos_code_dir)/.nanobox/pip_cache/site-packages/"
-    ls -lah "$(nos_data_dir)/lib/$(lib_runtime)/site-packages"
     cp -a \
       "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" \
       "$(nos_code_dir)/.nanobox/pip_cache/"
-    
-    ls -lah "$(nos_code_dir)/.nanobox/pip_cache/site-packages/"
-  else
-    echo "DONT COPY"
   fi
   
   # set the profile script that correctly sets up the links
