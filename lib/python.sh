@@ -91,8 +91,8 @@ setup_python_env() {
     echo "COPY!"
     ls -lah "$(nos_data_dir)/lib/$(lib_runtime)/site-packages"
     cp -a \
-      "$(nos_data_dir)/lib/$(lib_runtime)/site-packages/*" \
-      "$(nos_code_dir)/.nanobox/pip_cache/site-packages/"
+      "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" \
+      "$(nos_code_dir)/.nanobox/pip_cache/"
     
     ls -lah "$(nos_code_dir)/.nanobox/pip_cache/site-packages/"
   else
