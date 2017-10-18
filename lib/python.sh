@@ -31,6 +31,13 @@ condensed_runtime() {
   echo "${version//[.thon-]/}"
 }
 
+# In the data directory, the dir will look like python2.7 so
+# we need to fetch to lib runtime whenever we're messing with libs
+lib_runtime() {
+  version=$(runtime)
+  echo "${version//[-]/}"
+}
+
 # Install the python runtime along with any dependencies.
 install_runtime_packages() {
   pkgs=("$(runtime)" \
@@ -80,9 +87,9 @@ setup_python_env() {
   fi
   
   # If anything exists before we symlink, copy it into the cache
-  if [[ -d "$(nos_data_dir)/lib/$(runtime)/site-packages" ]]; then
+  if [[ -d "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" ]]; then
     mv \
-      "$(nos_data_dir)/lib/$(runtime)/site-packages/*" \
+      "$(nos_data_dir)/lib/$(lib_runtime)/site-packages/*" \
       "$(nos_code_dir)/.nanobox/pip_cache/site-packages"
   fi
   
@@ -96,7 +103,7 @@ python_profile_payload() {
 {
   "code_dir": "$(nos_code_dir)",
   "data_dir": "$(nos_data_dir)",
-  "runtime": "$(runtime)"
+  "runtime": "$(lib_runtime)"
 }
 END
 }
