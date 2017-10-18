@@ -88,9 +88,15 @@ setup_python_env() {
   
   # If anything exists before we symlink, copy it into the cache
   if [[ -d "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" ]]; then
-    mv \
-      "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" \
-      "$(nos_code_dir)/.nanobox/pip_cache/"
+    echo "COPY!"
+    ls -lah "$(nos_data_dir)/lib/$(lib_runtime)/site-packages"
+    cp -a \
+      "$(nos_data_dir)/lib/$(lib_runtime)/site-packages/*" \
+      "$(nos_code_dir)/.nanobox/pip_cache/site-packages/"
+    
+    ls -lah "$(nos_code_dir)/.nanobox/pip_cache/site-packages/"
+  else
+    echo "DONT COPY"
   fi
   
   # set the profile script that correctly sets up the links
