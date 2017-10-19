@@ -1,6 +1,9 @@
 # -*- mode: bash; tab-width: 2; -*-
 # vim: ts=2 sw=2 ft=bash noet
 
+# source the deps functions
+. ${engine_lib_dir}/deps.sh
+
 # Copy the code into the live directory which will be used to run the app
 publish_release() {
   nos_print_bullet "Moving build into live app directory..."
@@ -28,9 +31,18 @@ condensed_runtime() {
   echo "${version//[.thon-]/}"
 }
 
+# In the data directory, the dir will look like python2.7 so
+# we need to fetch to lib runtime whenever we're messing with libs
+lib_runtime() {
+  version=$(runtime)
+  echo "${version//[-]/}"
+}
+
 # Install the python runtime along with any dependencies.
 install_runtime_packages() {
-  pkgs=("$(runtime)" "$(condensed_runtime)-setuptools" "$(condensed_runtime)-pip")
+  pkgs=("$(runtime)" \
+        "$(condensed_runtime)-setuptools" \
+        "$(condensed_runtime)-pip")
   
   # add packages that are usually part of the stdlib
   pkgs+=(\
@@ -48,7 +60,7 @@ install_runtime_packages() {
 
 # Uninstall build dependencies
 uninstall_build_packages() {
-  pkgs=("$(condensed_runtime)-pip")
+  pkgs=()
 
   # if pkgs isn't empty, let's uninstall what we don't need
   if [[ ${#pkgs[@]} -gt 0 ]]; then
@@ -56,68 +68,53 @@ uninstall_build_packages() {
   fi
 }
 
-# compiles a list of dependencies that will need to be installed
-query_dependencies() {
-  deps=()
-
-  # mssql
-  if [[ `grep -i 'pymssql' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(freetds)
-  fi
-  # mysql
-  if [[ `grep -i 'MySQLdb\|mysqlclient\|MySQL-python' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(mysql-client)
-  fi
-  # memcache
-  if [[ `grep -i 'memcache\|libmc' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(libmemcached)
-  fi
-  # postgres
-  if [[ `grep -i 'psycopg2' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(postgresql94-client)
-  fi
-  # redis
-  if [[ `grep -i 'redis' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(redis)
-  fi
-  # curl
-  if [[ `grep -i 'pycurl' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(curl)
-  fi
-  # pillow
-  if [[ `grep -i 'pillow' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(libjpeg-turbo tiff zlib freetype2 lcms2 libwebp tcl tk)
-  fi
-  # boto3
-  if [[ `grep -i 'boto3' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=("$(condensed_runtime)-cElementTree")
-  fi
-  # xmlsec
-  if [[ `grep -i 'xmlsec' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(libxml2 libxslt xmlsec1 pkgconf)
-  fi
-  # python3-saml
-  if [[ `grep -i 'python3-saml' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(libxml2 libxslt xmlsec1 pkgconf)
-  fi
-  # pygraphviz
-  if [[ `grep -i 'pygraphviz' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(libxshmfence libva libvdpau libLLVM-3.8 graphviz)
-  fi
-  # scipy
-  if [[ `grep -i 'scipy' $(nos_code_dir)/requirements.txt` ]]; then
-    deps+=(blas lapack)
-  fi
-
-  echo "${deps[@]}"
-}
-
-# set any necessary python environment variables
+# Here we get to be a bit clever. Python will store it's cache (deps, etc)
+# in the site-packages dir. Changing this is not easily configurable, so we'll
+# essentially setup a cache dir in ~/.nanobox/pip_cache, and symlink
+# the site-packages to the cached location. Also, we'll copy anything
+# into the cache on the first run.
+# 
+# Additionally, we'll set some environment variables specifically for python
 setup_python_env() {
   # ensure python doesn't buffer even when not attached to a pty
   nos_template_file \
     "env.d/PYTHONUNBUFFERED" \
     "$(nos_etc_dir)/env.d/PYTHONUNBUFFERED"
+    
+  # Ensure the cache destination exists for site-packages
+  if [[ ! -d "$(nos_code_dir)/.nanobox/pip_cache/site-packages" ]]; then
+    mkdir -p "$(nos_code_dir)/.nanobox/pip_cache/site-packages"
+  fi
+  
+  # If anything exists before we symlink, copy it into the cache
+  if [[ -d "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" ]]; then
+    cp -a \
+      "$(nos_data_dir)/lib/$(lib_runtime)/site-packages" \
+      "$(nos_code_dir)/.nanobox/pip_cache/"
+  fi
+  
+  # set the profile script that correctly sets up the links
+  set_python_profile_script
+}
+
+# Generate the payload to render the python profile template
+python_profile_payload() {
+  cat <<-END
+{
+  "code_dir": "$(nos_code_dir)",
+  "data_dir": "$(nos_data_dir)",
+  "runtime": "$(lib_runtime)"
+}
+END
+}
+
+# Profile script to ensure symlinks for pip
+set_python_profile_script() {
+  mkdir -p "$(nos_etc_dir)/profile.d"
+  nos_template \
+    "profile.d/pip.sh" \
+    "$(nos_etc_dir)/profile.d/pip.sh" \
+    "$(python_profile_payload)"
 }
 
 # fetch the user-specified pip install command or use a default
