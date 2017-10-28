@@ -21,7 +21,7 @@ default_runtime() {
   echo "python-2.7"
 }
 
-# The pip package will look something like py27-pip so
+# The python packages will look something like py27-pip so
 # we need to fetch the condensed runtime to use for the package
 condensed_runtime() {
   version=$(runtime)
@@ -30,10 +30,8 @@ condensed_runtime() {
 
 # Install the python runtime along with any dependencies.
 install_runtime_packages() {
-  pkgs=("$(runtime)" "$(condensed_runtime)-setuptools" "$(condensed_runtime)-pip")
-  
-  # add packages that are usually part of the stdlib
-  pkgs+=(\
+  pkgs=(\
+    "$(runtime)" \
     "$(condensed_runtime)-cElementTree" \
     "$(condensed_runtime)-curses" \
     "$(condensed_runtime)-expat" \
@@ -48,8 +46,6 @@ install_runtime_packages() {
 
 # Uninstall build dependencies
 uninstall_build_packages() {
-  pkgs=("$(condensed_runtime)-pip")
-
   # if pkgs isn't empty, let's uninstall what we don't need
   if [[ ${#pkgs[@]} -gt 0 ]]; then
     nos_uninstall ${pkgs[@]}
@@ -112,12 +108,60 @@ query_dependencies() {
   echo "${deps[@]}"
 }
 
+# The directory name for python versions is in the form of
+# pythonX.Y (note there is no - between python and version.)
+runtime_dirname() {
+  version=$(runtime)
+  echo "${version//[-]/}"
+}
+
+# Relative to the app dir.
+pycache_relpath() {
+  echo ".nanobox/python"
+}
+
+pycache_abspath() {
+  echo "$(nos_code_dir)/$(pycache_relpath)"
+}
+
+get_pip_path() {
+  echo "$(nos_data_dir)/bin/get-pip.py"
+}
+
+# Payload to render the Python site/package files.
+python_payload() {
+  cat <<-END
+{
+  "pycache": "$(pycache_abspath)",
+  "pydirname": "$(runtime_dirname)"
+}
+END
+}
+
 # set any necessary python environment variables
 setup_python_env() {
   # ensure python doesn't buffer even when not attached to a pty
   nos_template_file \
     "env.d/PYTHONUNBUFFERED" \
     "$(nos_etc_dir)/env.d/PYTHONUNBUFFERED"
+  nos_template_file \
+    "vendor/get-pip.py" \
+    "$(get_pip_path)"
+  nos_template \
+    "lib/pythonX.Y/distutils/distutils.cfg" \
+    "$(nos_data_dir)/lib/$(runtime_dirname)/distutils/distutils.cfg" \
+    "$(python_payload)"
+  nos_template \
+    "lib/pythonX.Y/sitecustomize.py" \
+    "$(nos_data_dir)/lib/$(runtime_dirname)/sitecustomize.py" \
+    "$(python_payload)"
+}
+
+# Install the vendored pip that ships with the engine.
+install_pip() {
+  nos_run_process "Installing pip, setuptools, and wheel..." \
+    "python $(get_pip_path)"
+  cd - >/dev/null
 }
 
 # fetch the user-specified pip install command or use a default
