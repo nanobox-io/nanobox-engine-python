@@ -108,6 +108,10 @@ query_dependencies() {
   if [[ `grep -i 'scipy' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(blas lapack)
   fi
+  # paypalrestsdk
+  if [[ `grep -i 'paypalrestsdk' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(libffi)
+  fi
 
   echo "${deps[@]}"
 }
