@@ -39,4 +39,4 @@ if not IN_VENV:
 # These should be set anytime the interpreter is run because they benefit every
 # environment without clobbering each other.
 os.environ.setdefault('PIP_CACHE_DIR', '{{pycache}}/pip/cache')
-os.environ.setdefault('WORKON_HOME', '{{pycache}}/venvs')
+os.environ.setdefault('WORKON_HOME', '{{workon_home}}')

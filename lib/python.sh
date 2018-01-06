@@ -37,7 +37,7 @@ install_runtime_packages() {
     "$(condensed_runtime)-expat" \
     "$(condensed_runtime)-readline" \
     "$(condensed_runtime)-sqlite3")
-  
+
   # add any client dependencies
   pkgs+=("$(query_dependencies)")
 
@@ -124,6 +124,10 @@ pycache_abspath() {
   echo "$(nos_code_dir)/$(pycache_relpath)"
 }
 
+workon_home() {
+  echo "$(nos_code_dir)/.nanobox/python-venvs"
+}
+
 get_pip_path() {
   echo "$(nos_data_dir)/bin/get-pip.py"
 }
@@ -133,7 +137,8 @@ python_payload() {
   cat <<-END
 {
   "pycache": "$(pycache_abspath)",
-  "pydirname": "$(runtime_dirname)"
+  "pydirname": "$(runtime_dirname)",
+  "workon_home": "$(workon_home)"
 }
 END
 }
