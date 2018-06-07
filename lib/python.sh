@@ -108,6 +108,12 @@ query_dependencies() {
   if [[ `grep -i 'scipy' $(nos_code_dir)/requirements.txt` ]]; then
     deps+=(blas lapack)
   fi
+	# pgmagick
+  if [[ `grep -i 'pgmagick' $(nos_code_dir)/requirements.txt` ]]; then
+    deps+=(GraphicsMagick pkgconf)
+    nos_set_evar MAGICK_HOME $(nos_data_dir)
+    nos_persist_evar MAGICK_HOME $(nos_data_dir)
+  fi
 
   echo "${deps[@]}"
 }
